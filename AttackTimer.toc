@@ -1,0 +1,10 @@
+## Interface: 11200
+## Title:AttackTimer
+## Notes:Displays a progress bar for your attack speed
+## Title-zhCN:[|CFF2EFEF7近战|R |CFFABD473猎人|R] 攻击间隔计时条 
+## Notes-zhCN:|CFFDD66DDAttackTimer|R 显示平砍，自动射击间隔
+## Author: 凡人
+## Version: 1.0.1
+## Dependencies: !Libs
+Localization.lua
+AttackTimer.xml

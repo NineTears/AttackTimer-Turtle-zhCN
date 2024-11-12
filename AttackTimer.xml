@@ -1,0 +1,148 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	<Script file="AttackTimer.lua"/>
+	<Frame name="AttackTimerMove" movable="true" enableMouse="true" parent="UIParent" hidden="true">
+	   	<Size>
+			<AbsDimension x="215" y="33"/>
+		</Size>
+		<Anchors>
+			<Anchor point="BOTTOM" relativeTo="UIParent" relativePoint="BOTTOM">
+				<Offset>
+					<AbsDimension x="15" y="160"/>
+				</Offset>						
+			</Anchor>
+		</Anchors>
+        <Layers>
+          <Layer>
+            <FontString name="$parentText" inherits="GameFontNormal" text="攻击条">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="2" right="2" top="2" bottom="2" />
+			</BackgroundInsets>		
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+		</Backdrop>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForDrag("LeftButton");
+				this:SetBackdropBorderColor(0, 1, 0);
+			</OnLoad>
+			<OnMouseUp>
+				if ( this.isMoving ) then
+					this:StopMovingOrSizing();
+					this.isMoving = false;
+				end
+			</OnMouseUp>
+			<OnDragStart>
+				this:StartMoving();
+				this.isMoving = true;
+			</OnDragStart>
+			<OnDragStop>
+				this:StopMovingOrSizing();
+				this.isMoving = false;
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+
+	<StatusBar name="AttackTimerBar" drawLayer="BORDER" toplevel="true" parent="UIParent" movable="true" hidden="true">
+		<Size>
+			<AbsDimension x="195" y="13"/>
+		</Size>
+		<Anchors>
+			<Anchor point="BOTTOM" relativeTo="AttackTimerMove">
+				<Offset>
+					<AbsDimension x="0" y="7"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>		
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" inherits="GameFontHighlight" text="Attack">
+					<Size>
+						<AbsDimension x="185" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="2" y="3"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="$parentBorder" file="Interface\CastingBar\UI-CastingBar-Border">
+					<Size>
+						<AbsDimension x="256" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="28"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentSpark" file="Interface\CastingBar\UI-CastingBar-Spark" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>			
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				AttackTimer_OnLoad();			
+			</OnLoad>
+			<OnEvent>
+				AttackTimer_OnEvent(event);
+			</OnEvent>
+			<OnUpdate>
+				AttackTimer_OnUpdate(arg1);
+			</OnUpdate>			
+		</Scripts>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+		<BarColor r="0" g="1" b="0"/>
+	</StatusBar>
+
+	<Frame name="AttackTimerFrame" parent="AttackTimerBar">
+		<Size>
+			<AbsDimension x="22" y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT" relativeTo="AttackTimerBar" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="-10" y="2.5"/>
+				</Offset>						
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon">
+					<TexCoords left="0.1" right="0.9" top="0.1" bottom="0.9"/>
+				</Texture>
+			</Layer>			
+		</Layers>
+	</Frame>
+</Ui>
